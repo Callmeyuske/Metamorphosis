@@ -1,0 +1,18 @@
+# Ambiente Virtual
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Arquivos de Entrada e Saída (Não commitar suas imagens pessoais)
+input/*
+!input/.gitkeep
+
+# Logs e Builds (se houver no futuro)
+*.log
+dist/
+build/
+*.spec
