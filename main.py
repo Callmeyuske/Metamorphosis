@@ -1,52 +1,19 @@
-import os
 import sys
-from converters.image_factory import ImageFactory
-
-
-PASTA_INPUT = "input"
-
-def banner():
-    print("""
-    === METAMORPHOSIS v1.0 (MVP) ===
-    """)
-
-def scan_folder(extension_list):
-  
-    if not os.path.exists(PASTA_INPUT):
-        os.makedirs(PASTA_INPUT)
-        print(f"[Aviso] Pasta '{PASTA_INPUT}' criada. Coloque seus arquivos.")
-        return []
-
-    files = [
-        os.path.join(PASTA_INPUT, f) 
-        for f in os.listdir(PASTA_INPUT) 
-        if f.lower().endswith(extension_list)
-    ]
-    return files
+import tkinter as tk
+from interface import MetamorphosisGUI
 
 def main():
-    banner()
-    print("1. Converter PNG/JPG para .ICO (Windows Icon)")
-    print("0. Sair")
-    
-    choice = input("\nEscolha sua transmutação: ")
-
-    if choice == '1':
-        factory = ImageFactory()
-        arquivos = scan_folder(('.png', '.jpg', '.jpeg'))
-        
-        if not arquivos:
-            print(f"\n[Vazio] Nenhum arquivo de imagem encontrado em '{PASTA_INPUT}'.")
-        else:
-            print(f"\n--- Iniciando Transmutação em Lote ({len(arquivos)} arquivos) ---")
-            for arq in arquivos:
-                factory.to_ico(arq)
-            print("\n[Concluído] Ciclo finalizado.")
-            
-    elif choice == '0':
+    try:
+        root = tk.Tk()
+        # Tenta definir um ícone na janela se houver (opcional)
+        # root.iconbitmap("assets/icon.ico") 
+        app = MetamorphosisGUI(root)
+        root.mainloop()
+    except KeyboardInterrupt:
         sys.exit()
-    else:
-        print("Opção inválida.")
+    except Exception as e:
+        print(f"Erro fatal no núcleo: {e}")
+        input("Pressione Enter para sair...")
 
 if __name__ == "__main__":
     main()
